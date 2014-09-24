@@ -41,6 +41,9 @@ function changeColor(getName){
     return colors[getName];
 }
 var count = 0;
+var timeoutAI;
+var timeout;
+var shouldBounce = true;
 function animateBall() {
     var ball = document.getElementById("ball");
     var paddleAI = document.getElementById("pong1");
@@ -53,10 +56,18 @@ function animateBall() {
     var paddleAIy = parseInt(window.getComputedStyle(paddleAI,null).getPropertyValue("top"));
     var paddleAIw = parseInt(window.getComputedStyle(paddleAI,null).getPropertyValue("width"));
     var paddleAIh = parseInt(window.getComputedStyle(paddleAI,null).getPropertyValue("height"));
+    var paddlex = parseInt(window.getComputedStyle(paddlePlayer,null).getPropertyValue("left"));
+    var paddley = parseInt(window.getComputedStyle(paddlePlayer,null).getPropertyValue("top"));
+    var paddlew = parseInt(window.getComputedStyle(paddlePlayer,null).getPropertyValue("width"));
+    var paddleh = parseInt(window.getComputedStyle(paddlePlayer,null).getPropertyValue("height"));
     if (ballx <= paddleAIx + paddleAIw && paddleAIx <= ballx + ballw && bally <= paddleAIy + paddleAIh && paddleAIy <= bally + ballh) {
-        setInterval(function(){ballMove(ball)},100);
+        timeoutAI = setInterval(function(){ballMove(ball)},50);
+        window.clearInterval(timeout);
     }
-    // tangent = opposite/ adjacent
+    if (ballx <= paddlex + paddlew && paddlex <= ballx + ballw && bally <= paddley + paddleh && paddley <= bally + ballh) {
+        timeout = setInterval(function(){ballMove2(ball)},50);
+        window.clearInterval(timeoutAI); 
+    }
 }
 var ballx = 0;
 var bally = 0;
@@ -66,4 +77,11 @@ function ballMove(ball){
         ball.style.left = ballx +"px";
         ball.style.top = bally +"px";
         count++;
+}
+function ballMove2(ball){
+		ballx--;
+        bally--;
+        ball.style.left = ballx +"px";
+        ball.style.top = bally +"px";
+        count--;
 }
