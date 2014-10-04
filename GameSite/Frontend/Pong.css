@@ -106,6 +106,19 @@ h3{
     left:10px;
     position:absolute;
 }
+#link3{
+	top:5px;
+	left:20px;
+	position:absolute;
+}
+#triproad{
+	width:100px;
+    height:30px;
+    position:absolute;
+    margin:auto;
+    left:230px;
+    background:blue;
+}
 a:link{
     color:yellow;
 }
